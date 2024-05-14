@@ -1,0 +1,18 @@
+version: '3.9'
+
+services:
+  web:
+    container_name: emoji-frontend
+    build: .
+    image: umangnaik/docker-compose-2-tier-app-web
+    ports:
+      - "80:5000" # for beanstalk deployment
+      # - "8000:5000"
+    depends_on:
+      - redis
+    environment:
+      - FLASK_ENV=development
+
+  redis:
+    container_name: redis-db-backend
+    image: "redis:alpine"
